@@ -4,9 +4,26 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class AppUI {
-	
+
 	private static Scanner sc = new Scanner(System.in);
-	
+
+	public static String inputString() { //입력값(공백 및 문자) 받는 메서드
+		return sc.nextLine();
+	}	
+
+	public static int inputInteger() { //입력값(메뉴선택) 받는 메서드
+		int num = 0;
+		try {
+			num = sc.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("정수로 입력해 주세요.");
+		} finally {
+			sc.nextLine();
+		}		
+		return num;
+	}
+
+	// 메인(시작) 화면 출력
 	public static void startScreen() {
 		System.out.println("                                                                                          \r\n"
 				+ "                                 :+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#=                    \r\n"
@@ -39,7 +56,7 @@ public class AppUI {
 				+ "               .+%@@@@@@@@@@#-                              -*%@@@@@@@@@%*:               \r\n"
 				+ "                   .:----:.                                     ::---:.              .... \r\n"
 				+ "");
-		
+
 		System.out.println("\n========== Rent Car 관리 시스템 ==========");
 		System.out.println("### 1. 회원 관리 시스템");
 		System.out.println("### 2. 차량 관리 시스템");
@@ -49,21 +66,17 @@ public class AppUI {
 		System.out.print(">>> ");
 
 	}
-	
-	
-	public static String inputString() { //입력값(공백 및 문자) 받는 메서드
-		return sc.nextLine();
-	}	
-	
-	public static int inputInteger() { //입력값(메뉴선택) 받는 메서드
-		int num = 0;
-		try {
-			num = sc.nextInt();
-		} catch (InputMismatchException e) {
-			System.out.println("정수로 입력해 주세요.");
-		} finally {
-			sc.nextLine();
-		}		
-		return num;
+
+	// 차량 관리 시스템 화면 출력
+	public static void carManagementScreen() {
+		System.out.println("\n========= 차량 관리 시스템 =========");
+        System.out.println("### 1. 신규 차량 등록");
+        System.out.println("### 2. 차량 검색");
+        System.out.println("### 3. 차량 정보 수정");
+        System.out.println("### 4. 차량 정보 삭제");
+        System.out.println("### 5. 첫 화면으로 가기");
+        System.out.println("----------------------------------------");
+        System.out.print(">>> ");
 	}
+
 }
