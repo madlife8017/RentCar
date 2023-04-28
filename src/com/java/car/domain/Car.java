@@ -25,7 +25,7 @@ public class Car {
 	private int carNum;
 	private String carId;
 	private String carModel;
-	private String carSize;
+	private CarSize carSize;
 	private int carFee;
 	private CarGrade carGrade;
 	private String carStatus;
@@ -33,7 +33,7 @@ public class Car {
 
 	public Car() {}
 
-	public Car(int carNum, String carId, String carModel, String carSize, int carFee, CarGrade carGrade,
+	public Car(int carNum, String carId, String carModel, CarSize carSize, int carFee, CarGrade carGrade,
 			String carStatus, int userNum) {
 		super();
 		this.carNum = carNum;
@@ -70,11 +70,11 @@ public class Car {
 		this.carModel = carModel;
 	}
 
-	public String getCarSize() {
+	public CarSize getCarSize() {
 		return carSize;
 	}
 
-	public void setCarSize(String carSize) {
+	public void setCarSize(CarSize carSize) {
 		this.carSize = carSize;
 	}
 
@@ -112,24 +112,6 @@ public class Car {
 
 	@Override
 	public String toString() {
-		String carSize = "";
-		if(this.carSize.equals("Compact")) {
-			carSize = "경차";
-		} else if(this.carSize.equals("Small")) {
-			carSize = "소형";
-		} else if(this.carSize.equals("Midsize")) {
-			carSize = "중형";
-		} else if(this.carSize.equals("Big")) {
-			carSize = "대형";
-		} else if(this.carSize.equals("Van")) {
-			carSize = "밴";
-		} else if(this.carSize.equals("SUV")) {
-			carSize = "SUV";
-		} else if(this.carSize.equals("Foreign")) {
-			carSize = "외제차";
-		} else {
-			carSize = "규격 외 차량";
-		}
 
 		return
 				"### 차량번호 : " + carNum +
