@@ -1,12 +1,8 @@
 package com.java.rent.domain;
 
-<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.Date;
-=======
-import java.time.LocalDateTime;
->>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 
 import com.java.user.domain.UserGrade;
 
@@ -31,7 +27,6 @@ public class Rent {
 
 	private int rentNum;
 	private int userNum;
-<<<<<<< HEAD
 	private int carNum;
 	private Date userRentDate;
 	private Date userExpDate;
@@ -47,24 +42,10 @@ public class Rent {
 		this.carNum = carNum;
 		this.userRentDate = userRentDate;
 		this.userExpDate = userExpDate;
-=======
-	private LocalDateTime userRentDate;
-	private LocalDateTime userReturnDate;
-	private Boolean carRent;
-
-	public Rent() {}
-
-	public Rent(int rentNum, int userNum, LocalDateTime userRentDate, LocalDateTime userReturnDate, Boolean carRent) {
-		super();
-		this.rentNum = rentNum;
-		this.userNum = userNum;
-		this.userRentDate = userRentDate;
->>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 		this.userReturnDate = userReturnDate;
 		this.carRent = carRent;
 	}
 
-<<<<<<< HEAD
 
 
 	public Date getUserExpDate() {
@@ -83,8 +64,6 @@ public class Rent {
 		this.carNum = carNum;
 	}
 
-=======
->>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 	public int getRentNum() {
 		return rentNum;
 	}
@@ -101,7 +80,6 @@ public class Rent {
 		this.userNum = userNum;
 	}
 
-<<<<<<< HEAD
 	public Date getUserRentDate() {
 		return userRentDate;
 	}
@@ -140,45 +118,11 @@ public class Rent {
 				", 렌트 차량 번호 : " + carNum +				
 				", 렌트일자: " + userRentDate +
 				", 예상 반납 일자: " + userExpDate +
-=======
-	public LocalDateTime getUserRentDate() {
-		return userRentDate;
-	}
-
-	public void setUserRentDate(LocalDateTime userRentDate) {
-		this.userRentDate = userRentDate;
-	}
-
-	public LocalDateTime getUserReturnDate() {
-		return userReturnDate;
-	}
-
-	public void setUserReturnDate(LocalDateTime userReturnDate) {
-		this.userReturnDate = userReturnDate;
-	}
-
-	public Boolean getCarRent() {
-		return carRent;
-	}
-
-	public void setCarRent(Boolean carRent) {
-		this.carRent = carRent;
-	}
-
-	@Override
-	public String toString() {
-		String carRent = this.carRent ? "렌트가능" : "렌트중";
-		return
-				"### 렌트번호 : " + rentNum +
-				", 렌트한 회원 번호 : " + userNum +
-				", 렌트일자: " + userRentDate +
->>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 				", 반납일자: " + userReturnDate +
 				", 렌트상태: " + carRent;
 	}
 
 
-<<<<<<< HEAD
 	public String form2() {
 
 		return
@@ -190,7 +134,5 @@ public class Rent {
 
 
 
-=======
->>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 
 }

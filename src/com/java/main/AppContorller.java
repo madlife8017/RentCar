@@ -24,14 +24,8 @@ public class AppContorller {
 			System.exit(0);
 		default:
 			System.out.println("# 메뉴를 다시 입력하세요.");	
-<<<<<<< HEAD
 		}		
-=======
-		}
-		
->>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 		service.start();
 		
 	}
-	
 }
