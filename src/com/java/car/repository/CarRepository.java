@@ -69,7 +69,10 @@ public class CarRepository {
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();) {
 			while(rs.next()) {
+<<<<<<< HEAD
 				System.out.println();
+=======
+>>>>>>> 2443e07db919e71804e65132a1a372604079abd8
 				CarSize carSize = CarSize.valueOf(rs.getString("car_size"));
 				CarGrade carGrade = CarGrade.valueOf(rs.getString("car_grade"));
 				Car car = new Car(
