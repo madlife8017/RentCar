@@ -22,6 +22,7 @@ public class AppUI {
 		}		
 		return num;
 	}
+<<<<<<< HEAD
 
 	// 메인(시작) 화면 출력
 	public static void startScreen() {
@@ -61,4 +62,17 @@ public class AppUI {
 		}
 		
 	
+=======
+	
+	// 회원 관리 시스템 화면 출력
+	public static void userManagementScreen() {
+		System.out.println("\n========== 회원 관리 시스템 ==========");
+		System.out.println("### 1. 신규 회원 추가");
+		System.out.println("### 2. 회원 검색");
+		System.out.println("### 3. 회원 탈퇴");
+		System.out.println("### 4. 첫 화면으로 가기");
+		System.out.println("---------------------------------");
+		System.out.print(">>> ");
+		}
+>>>>>>> 6a3c204e388bb2ed8a42ae1caff4a461f578d4a0
 }
