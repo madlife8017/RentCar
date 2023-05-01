@@ -13,7 +13,6 @@ public class AppContorller {
 	public void chooseSystem(int selectNumber) {
 		switch (selectNumber) {
 		case 1 :
-			break;
 			service = new UserService();
 			break;			
 		case 2 :
