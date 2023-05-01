@@ -28,25 +28,25 @@ public class RentService implements AppService {
 
 			switch (selection) {
 			case 1:
-				// 대여 조회
+				
 				searchRentData();
 
 				break;
 			case 2:
-				// 신규 대여
+				
 				newRent();
 
 				break;
 			case 3:
-				// 차량 정보 수정 메서드
+				extendRent();
 
 				break;
 			case 4:
-				// 차량 정보 삭제 메서드
+				returnCar();
 
 				break;
 			case 5:
-				// 메인 화면으로 돌아가기
+			
 				System.out.println("\n첫 화면으로 돌아갑니다.\n");
 				return;
 
@@ -86,6 +86,7 @@ public class RentService implements AppService {
 			rentRepository.searchRentList(sql,signal);
 			break;
 
+
 		default:
 			System.out.println("\n### 잘못 입력했습니다.");
 		}		
@@ -109,7 +110,7 @@ public class RentService implements AppService {
 			String expDate = inputString();
 
 			String date1 = LocalDate.now().format(DateTimeFormatter.ofPattern("yy/MM/dd"));
-			
+
 			Date format1 = null;
 			Date format2 = null ;
 			try {
@@ -121,6 +122,7 @@ public class RentService implements AppService {
 				e.printStackTrace();return;
 			}
 			long diffSec = (format2.getTime() - format1.getTime()) / 1000;
+
 			long diffDays = diffSec/ (24*60*60);
 
 			System.out.println("\n========= 대여 확인 =========");
@@ -134,12 +136,61 @@ public class RentService implements AppService {
 			System.out.print(">>> ");
 			String confrim = inputString();
 			if(confrim.equals("Y")||confrim.equals("y")) {
-				rentRepository.rentprocess(carNum,userNum,expDate);
+				rentRepository.rentprocessRenthistory(carNum,userNum,expDate);
+				rentRepository.rentprocessCar(carNum, userNum);
 			}else if(confrim.equals("N")||confrim.equals("n")){
 				System.out.println("대여가 취소되었습니다.");
 				return;        	
 			} 
 
 		}
+	}
+
+	private void extendRent() {
+		System.out.println("대여연장 하실 [렌트번호] 를 입력하세요");
+		System.out.print(">>> ");
+		int rentNum = inputInteger();
+		if(rentRepository.rentCheck(rentNum).equals("TRUE")){
+			System.out.println("대여 중인 차량이 아닙니다.");
+		} else if (rentRepository.rentCheck(rentNum).equals("false")) {
+			String sql ="SELECT user_exp_date FROM rent_history where rent_num="+rentNum;
+			rentRepository.getExpDate(rentNum);
+			System.out.println("연장된 예상 반납일 입력하세요 (YY/MM/DD)");
+			System.out.print(">>> ");
+			String newExpDate = inputString();
+			System.out.println("\n연장을 진행하시겠습니까? (Y/N)");
+			System.out.print(">>> ");
+			String confrim = inputString();
+			if(confrim.equals("Y")||confrim.equals("y")) {
+				rentRepository.extendprocessRenthistory(rentNum,newExpDate);
+			}else if(confrim.equals("N")||confrim.equals("n")){
+				System.out.println("대여가 취소되었습니다.");
+				return;        	
+			} 
+		}
+
+	}
+	
+	private void returnCar() {
+		System.out.println("반납 하실 [렌트번호] 를 입력하세요");
+		System.out.print(">>> ");
+		int rentNum = inputInteger();
+		if(rentRepository.rentCheck(rentNum).equals("TRUE")){
+			System.out.println("대여 중인 차량이 아닙니다.");
+		} else if (rentRepository.rentCheck(rentNum).equals("false")) {
+			System.out.println("\n반납를 진행하시겠습니까? (Y/N)");
+			System.out.print(">>> ");
+			String confrim = inputString();
+			
+			if(confrim.equals("Y")||confrim.equals("y")) {
+				System.out.println("차량이 반납되었습니다.");				
+				rentRepository.returnProcessCar(rentRepository.returnProcessRenthistory(rentNum));			
+				
+			}else if(confrim.equals("N")||confrim.equals("n")){
+				System.out.println("반납이 취소되었습니다.");
+				return;        	
+			} 
+		}
+		
 	}
 }
