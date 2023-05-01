@@ -9,7 +9,7 @@ public class DataBaseConnection {
 	
 	private DataBaseConnection() {
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -26,9 +26,9 @@ public class DataBaseConnection {
 	public Connection getConnection() throws SQLException {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String uid = "hr";
-		String upw = "hr";
-		
+		String upw = "hr";		
 		return DriverManager.getConnection(url, uid, upw);
+		
 	}
 
 }

@@ -13,6 +13,7 @@ public class Main {
 		while(true){			
 			AppUI.startScreen();
 			int selectNumber = inputInteger();
+			System.out.println(selectNumber);
 			controller.chooseSystem(selectNumber);
 		}
 	}
