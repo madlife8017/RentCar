@@ -1,6 +1,7 @@
 package com.java.main;
 
 import com.java.common.AppService;
+import com.java.user.service.UserService;
 
 public class AppContorller {
 
@@ -10,6 +11,7 @@ public class AppContorller {
 	public void chooseSystem(int selectNumber) {
 		switch (selectNumber) {
 		case 1 :
+			service = new UserService();
 			break;			
 		case 2 :
 			break;
@@ -21,5 +23,6 @@ public class AppContorller {
 		default:
 			System.out.println("# 메뉴를 다시 입력하세요.");	
 		}
+		service.start();
 	}
 }
