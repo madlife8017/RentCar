@@ -39,14 +39,11 @@ public class UserRepository {
 	}
 
 	// 회원의 이름으로 정보 검색
-	public List<User> findByUserName(String userName) {
-		List<User> userList = new ArrayList<>();
-		String sql = "SELECT * FROM rent_users WHERE user_name=?";
-
+	public List<User> findByUserName(String userName, String sql) {
+		List<User> userList = new ArrayList<>();		
 		try (Connection conn = connection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, userName);
+			if(!userName.equals(""))pstmt.setString(1, userName);			
 			ResultSet rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				UserGrade grade = UserGrade.valueOf(rs.getString("user_grade"));
 				User user = new User(rs.getInt("user_num"),

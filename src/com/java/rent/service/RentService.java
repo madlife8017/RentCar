@@ -61,21 +61,21 @@ public class RentService implements AppService {
 
 	private void searchRentData() {
 		System.out.println("\n=============== 차량 검색 조건을 선택하세요. ===============");
-		System.out.println("[ 1. 전체 대여 상황 조회 | 2. 대여 가능 차량 검색 | 3. 반납 예정 차량 검색 ]");
+		System.out.println("[ 1. 전체 대여 기록 조회 | 2. 대여 가능 차량 검색 | 3. 반납 예정 차량 검색 ]");
 		System.out.print(">>> ");
 		int selection = inputInteger();
 		int signal =0;
 		String sql;
 		switch (selection) {
 		case 1:
-			System.out.println("\n### 전제 대여 상황을 검색합니다.");
-			sql = "SELECT * FROM rent_history";
+			System.out.println("\n### 전제 대여 기록을 검색합니다.");
+			sql = "SELECT * FROM rent_history ORDER BY rent_num ASC";
 			signal = 1;
 			rentRepository.searchRentList(sql,signal);
 			break;
 		case 2:
 			System.out.println("\n### 대여 가능 차량을 검색합니다.");
-			sql = "SELECT * FROM cars WHERE car_status='available'";
+			sql = "SELECT * FROM cars WHERE car_status='available' ";
 			rentRepository.avCheck(sql);
 			break;			
 		case 3:
@@ -97,9 +97,9 @@ public class RentService implements AppService {
 		System.out.println("대여하실 차량 번호를 입력하세요");
 		System.out.print(">>> ");
 		int carNum = inputInteger();
-		if(rentRepository.rentCheck(carNum).equals("false")){
+		if(rentRepository.rentCheckCarnum(carNum).equals("onRent")||rentRepository.rentCheckCarnum(carNum).equals("repair")){
 			System.out.println("대여 혹은 점검중인 차량입니다.");
-		} else if (rentRepository.rentCheck(carNum).equals("TRUE")) {
+		} else if (rentRepository.rentCheckCarnum(carNum).equals("available") ) {
 
 			System.out.println("회원번호를 입력하세요");
 			System.out.print(">>> ");

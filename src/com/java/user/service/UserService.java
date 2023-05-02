@@ -2,6 +2,7 @@ package com.java.user.service;
 
 import static com.java.view.AppUI.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.java.common.AppService;
@@ -62,17 +63,53 @@ public class UserService implements AppService {
 	
 		userRepository.addUser(user);
 	}
+	
+	private int searchChoose() {
+		System.out.println("\n=============== 회원 검색 조건을 선택하세요. ===============");
+		System.out.println("[ 1. 전체 회원 | 2. 개인 회원 ]");
+		System.out.print(">>> ");
+		int selection = inputInteger();
 		
+		
+		switch (selection) {
+		case 1:
+			System.out.println("\n### 전체 회원을 검색합니다.");	
+			 
+			 return 1;			
+			
+		case 2:
+			System.out.println("\n### 개인 회원을 검색합니다.");	
+			
+			return 2;	
+					
+		default:
+			System.out.println("\n### 잘못 입력했습니다.");
+		}
+		return 0;
+		
+	}
 	//회원 이름으로 검색 비즈니스 로직
+	
 	private List<User> searchUser() {
 		System.out.println("\n### 조회할 회원의 이름을 입력하세요.");
 		System.out.println(">>> ");
 		String name = inputString();
-		return userRepository.findByUserName(name);
+		String sql = "SELECT * FROM rent_users WHERE user_name=?";
+		return userRepository.findByUserName(name,sql);
+	}
+	private List<User> searchUserTotal() {
+		String name = "";
+		String sql = "SELECT * FROM rent_users";
+		return userRepository.findByUserName(name,sql);
 	}
 		
 	private int showSearchResult() {
-		List<User> users = searchUser();
+		int signal = searchChoose();
+		List<User> users = new ArrayList<>();
+		
+		if(signal==1) users = searchUserTotal();
+		else if(signal==2) users = searchUser();		
+		
 		
 		if(!users.isEmpty()) {
 			System.out.println("\n======================= 회원 조회 결과 =======================");

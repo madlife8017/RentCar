@@ -153,6 +153,24 @@ public class RentRepository {
 		return check;
 
 	}
+	public String rentCheckCarnum(int carNum) {
+		String check ="";
+		String sql="SELECT car_status From cars   WHERE car_num="+carNum;	
+		try(Connection conn = connection.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery();) {	
+			while(rs.next()) {
+				check =rs.getString("car_status");		
+			}
+			
+
+		} catch (Exception e) {			
+			e.printStackTrace();
+
+		}
+		return check;
+
+	}
 
 	public List<Car_temp> avCheck(String sql) {
 		List<Car_temp> carList = new ArrayList<>();
