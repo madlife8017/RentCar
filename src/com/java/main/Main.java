@@ -8,10 +8,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		AppUI.Startlogo();
+		AppUI.StartNotice();
 		AppContorller controller = new AppContorller();
 		
 		while(true){			
-			AppUI.startScreen();
+			AppUI.startScreen();			
 			int selectNumber = inputInteger();
 			System.out.println(selectNumber);
 			controller.chooseSystem(selectNumber);

@@ -124,11 +124,11 @@ public class UserService implements AppService {
 
 	//회원 탈퇴 비즈니스 로직
 	private void deleteUser() {
-		if(showSearchResult() > 0) {
+		
 			System.out.println("\n### 탈퇴할 회원의 번호를 입력하세요.");
 			System.out.print(">>> ");
 			int delUserNum = inputInteger();
 			userRepository.deleteUser(delUserNum);
-		}
+		
 	}
 }
