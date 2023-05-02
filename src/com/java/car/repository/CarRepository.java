@@ -9,11 +9,11 @@ import java.util.List;
 import com.java.car.domain.Car;
 import com.java.car.domain.CarGrade;
 import com.java.car.domain.CarSize;
+import com.java.common.CarCondition;
 import com.java.common.DataBaseConnection;
-import com.java.common.SearchCondition;
 
 public class CarRepository {
-	
+
 	private DataBaseConnection connection = DataBaseConnection.getInstance();
 
 	// 차량 정보 DB 추가 메서드
@@ -21,50 +21,45 @@ public class CarRepository {
 		String sql = "INSERT INTO cars "
 				+ "(car_num, car_id, car_model, car_size, car_fee, car_grade) "
 				+ "VALUES(cars_seq.NEXTVAL, ?, ?, ?, ?, ?)";
-		System.out.println("sql문 생성");
-		
+
 		try(Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, Car.getCarId());
-			System.out.println("sql문에 ID 추가");
 			pstmt.setString(2, Car.getCarModel());
-			System.out.println("sql문에 MODEL 추가");
 			pstmt.setString(3, Car.getCarSize().toString());
-			System.out.println("sql문에 SIZE 추가");
 			pstmt.setInt(4, Car.getCarFee());
-			System.out.println("sql문에 FEE 추가");
 			pstmt.setString(5, Car.getCarGrade().toString());
-			System.out.println("sql문에 GRADE 추가");
-			
-			System.out.println(pstmt);
-			
+
 			if(pstmt.executeUpdate() == 1) {
 				System.out.println("차량 등록이 정상 처리되었습니다.");
 			} else {
 				System.out.println("차량 등록에 실패했습니다. 관리자에게 문의하세요.");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	// 차량 정보 DB 검색 메서드
-	public List<Car> searchCarList(SearchCondition condition, String keyword) {
-		
+	public List<Car> searchCarList(CarCondition condition, String keyword) {
+
 		String sql = "";
 		List<Car> carList = new ArrayList<>();
-		
+
 		switch (condition) {
-		case CAR_MODEL: case CAR_ID: case CAR_STATUS:
-			sql = "SELECT * FROM cars WHERE " + condition.toString() + " LIKE " + keyword;
+		case CAR_MODEL: case CAR_ID: 
+			sql = "SELECT * FROM cars WHERE " + condition.toString()
+			+ " LIKE " + keyword;
+			break;
+		case ONRENT: case AVAILABLE:
+			sql = "SELECT * FROM cars WHERE CAR_STATUS = '" + condition.toString() + "'";
 			break;
 		case ALL:
 			sql = "SELECT * FROM cars";
 		}
-		System.out.println("sql : " + sql);
-		
+
 		try(Connection conn = connection.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();) {
@@ -81,14 +76,56 @@ public class CarRepository {
 						rs.getString("car_status"),
 						rs.getInt("user_num")
 						);
-				System.out.println("검색으로 받아온 car 객체 : " + car);
 				carList.add(car);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("검색 후 carList : " + carList);
+		
 		return carList;
+		
+	}
+
+	// 차량 번호를 통해 DB의 차량 정보를 수정하는 메서드
+	public void modifyCarDB(int inputCarNum, CarCondition condition, String keyword) {
+
+		String sql = "UPDATE cars SET " + condition.toString()
+		+ " = " + keyword + " WHERE car_num = " + inputCarNum;
+
+		try(Connection conn = connection.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			int result = pstmt.executeUpdate(sql);
+
+			if(result == 1) {
+				System.out.println("차량 정보 수정 완료!");
+			} else {
+				System.out.println("차량 정보 수정 실패.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+	}
+
+	// 차량 번호를 통해 DB의 차량 정보를 삭제하는 메서드
+	public void deleteCarDB(int inputCarNum) {
+
+		String sql = "DELETE FROM cars WHERE car_num = " + inputCarNum;
+
+		try(Connection conn = connection.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			int result = pstmt.executeUpdate(sql);
+
+			if(result == 1) {
+				System.out.println("차량 정보 삭제 완료!");
+			} else {
+				System.out.println("차량 정보 삭제 실패.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -23,10 +23,11 @@ public class User {
 	private int userNum;
 	private String userName;
 	private String phoneNumber;
-	private int userAge;
+	private int userAge; // 나이도 추가되었네?
 	private UserGrade userGrade;
-	private String userLocation;
-
+	private String userLocation; // 사는 지역이 추가되었네?
+    // 가지고 있는 요금 : 가격에 따라 선택가능한거
+	
 	public User() {}
 
 	public User(int userNum, String userName, String phoneNumber, int userAge, UserGrade userGrade,
